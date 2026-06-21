@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: innovatech-ventas
+  namespace: innovatech
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: innovatech-ventas
+  template:
+    metadata:
+      labels:
+        app: innovatech-ventas
+    spec:
+      containers:
+        - name: ventas-backend
+          # Apunta a la imagen de tu repositorio de ECR para ventas
+          image: 587188089348.dkr.ecr.us-east-1.amazonaws.com/innovatech-ventas:eks-v1 
+          ports:
+            - containerPort: 8080 # Spring Boot suele usar el 8080 por defecto
+          env:
+            - name: DB_HOST
+              value: "innovatech-db"
+            - name: DB_USER
+              value: "root"
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: MYSQL_ROOT_PASSWORD
+            - name: DB_NAME
+              value: "innovatech_ventas_db" # Ajusta si tu base de datos de ventas se llama distinto
+            - name: DB_PORT
+              value: "3306"
+            # Si tu Spring Boot necesita perfiles activos, puedes descomentar las siguientes líneas:
+            # - name: SPRING_PROFILES_ACTIVE
+            #   value: "prod"
+
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi" # Spring Boot (Java) suele requerir un poco más de memoria inicial que Node.js
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+
+          # HEALTH CHECKS (Ajustados para Spring Boot Actuator si lo usas, o la ruta de tu API)
+          readinessProbe:
+            httpGet:
+              path: /actuator/health # O la ruta de health que responda un 200 OK en ventas
+              port: 8080
+            initialDelaySeconds: 20 # Java demora un poco más en levantar, le damos más tiempo inicial
+            periodSeconds: 10
+
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10

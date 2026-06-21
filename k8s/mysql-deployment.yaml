@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: innovatech-db
+  namespace: innovatech
+spec:
+  selector:
+    matchLabels:
+      app: innovatech-db
+  template:
+    metadata:
+      labels:
+        app: innovatech-db
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:8.0 # O la versión que use el ejemplo de tu profesor
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: MYSQL_ROOT_PASSWORD
+            # Si tu base de datos necesita crear un esquema inicial automáticamente:
+            - name: MYSQL_DATABASE
+              value: "innovatech_db" 
+          ports:
+            - containerPort: 3306
+              name: mysql
