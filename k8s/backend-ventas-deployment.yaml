@@ -40,22 +40,7 @@ spec:
           resources:
             requests:
               cpu: "100m"
-              memory: "256Mi" # Spring Boot (Java) suele requerir un poco más de memoria inicial que Node.js
+              memory: "256Mi"
             limits:
               cpu: "500m"
               memory: "512Mi"
-
-          # HEALTH CHECKS (Ajustados para Spring Boot Actuator si lo usas, o la ruta de tu API)
-          #          readinessProbe:
-#            httpGet:
-#              path: /actuator/health
-#              port: 8080
-#            initialDelaySeconds: 20
-#            periodSeconds: 10
-#
-#          livenessProbe:
-#            httpGet:
-#              path: /actuator/health
-#              port: 8080
-#            initialDelaySeconds: 30
-#            periodSeconds: 10
