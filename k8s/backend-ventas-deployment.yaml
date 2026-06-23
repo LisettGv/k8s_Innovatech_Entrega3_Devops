@@ -4,6 +4,8 @@ metadata:
   name: innovatech-ventas
   namespace: innovatech
 spec:
+  strategy:
+    type: Recreate
   replicas: 2
   selector:
     matchLabels:
