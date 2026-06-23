@@ -16,7 +16,7 @@ spec:
       containers:
         - name: frontend
           # Asegúrate de que el nombre del repositorio en ECR corresponda a tu frontend
-          image: 587188089348.dkr.ecr.us-east-1.amazonaws.com/innovatech-frontend:eks-v1 
+          image: 114680401577.dkr.ecr.us-east-1.amazonaws.com/innovatech-frontend:${IMAGE_TAG}
           ports:
             - containerPort: 80
 
