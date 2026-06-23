@@ -17,7 +17,6 @@ spec:
     spec:
       containers:
         - name: backend
-          # Recuerda verificar que el ID de cuenta de AWS y el nombre del repositorio ECR coincidan con los tuyos
           image: 114680401577.dkr.ecr.us-east-1.amazonaws.com/innovatech-backend-despachos:${IMAGE_TAG}
           ports:
             - containerPort: 8080
@@ -32,14 +31,12 @@ spec:
                   name: mysql-secret
                   key: MYSQL_ROOT_PASSWORD
             - name: DB_NAME
-              value: "innovatech_db"
+              value: "innovatech" # Corregido para que coincida exactamente con MySQL
             - name: DB_PORT
               value: "3306"
-
-          # Se agrega Resource para que Metrics Server calcule el % de CPU y Memoria para escalar 
           resources:
             requests:
-              cpu: "100m"
+              cpu: "50m"      # Ajustado un poco más bajo para que el clúster estudiantil lo asigne de inmediato
               memory: "256Mi"
             limits:
               cpu: "500m"
