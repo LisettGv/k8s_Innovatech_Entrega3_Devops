@@ -18,7 +18,7 @@ spec:
       containers:
         - name: ventas-backend
           # Apunta a la imagen de tu repositorio de ECR para ventas
-          image: 114680401577.dkr.ecr.us-east-1.amazonaws.com/innovatech-backend-ventas:${IMAGE_TAG}
+          image: 114680401577.dkr.ecr.us-east-1.amazonaws.com/innovatech-backend-ventas:eks-v1
           ports:
             - containerPort: 8080 # Spring Boot suele usar el 8080 por defecto
           env:
