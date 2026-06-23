@@ -106,10 +106,10 @@ jobs:
         run: |
           kubectl apply -f k8s/backend-despachos-deployment.yaml -n $EKS_NAMESPACE
           kubectl apply -f k8s/backend-despachos-service.yaml -n $EKS_NAMESPACE
-          kubectl set image deployment/innovatech-backend-despachos \
-            backend-despachos=$ECR_REGISTRY/${ECR_REPO_BACKEND_DESPACHOS}:${IMAGE_TAG} \
+          kubectl set image deployment/innovatech-backend \
+            innovatech-backend=$ECR_REGISTRY/${ECR_REPO_BACKEND_DESPACHOS}:${IMAGE_TAG} \
             -n $EKS_NAMESPACE
-          kubectl rollout status deployment/innovatech-backend-despachos -n $EKS_NAMESPACE
+          kubectl rollout status deployment/innovatech-backend -n $EKS_NAMESPACE
 
       # ---------- Actualizar BACKEND VENTAS en EKS ----------
       - name: Actualizar BACKEND VENTAS en EKS
@@ -119,10 +119,10 @@ jobs:
         run: |
           kubectl apply -f k8s/backend-ventas-deployment.yaml -n $EKS_NAMESPACE
           kubectl apply -f k8s/backend-ventas-service.yaml -n $EKS_NAMESPACE
-          kubectl set image deployment/innovatech-backend-ventas \
-            backend-ventas=$ECR_REGISTRY/${ECR_REPO_BACKEND_VENTAS}:${IMAGE_TAG} \
+          kubectl set image deployment/innovatech-ventas \
+            ventas-backend=$ECR_REGISTRY/${ECR_REPO_BACKEND_VENTAS}:${IMAGE_TAG} \
             -n $EKS_NAMESPACE
-          kubectl rollout status deployment/innovatech-backend-ventas -n $EKS_NAMESPACE
+          kubectl rollout status deployment/innovatech-ventas -n $EKS_NAMESPACE
 
       # ---------- Actualizar FRONTEND en EKS ----------
       - name: Actualizar FRONTEND en EKS
