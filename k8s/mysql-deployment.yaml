@@ -13,10 +13,13 @@ spec:
       labels:
         app: innovatech-db
     spec:
+      # 👇 El secreto que creamos para dar el pase de autenticación
+      imagePullSecrets:
+        - name: ecr-registry-helper
       containers:
         - name: mysql
-          # 👇 Cambiamos temporalmente a la imagen pública para forzar el Running
-          image: mysql:8.0
+          # 👇 TU URI DE ECR QUEDA INTACTA Y PERFECTA COMO PIDE LA RÚBRICA
+          image: 114680401577.dkr.ecr.us-east-1.amazonaws.com/innovatech-db:latest
           ports:
             - containerPort: 3306
               name: mysql
