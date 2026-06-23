@@ -4,6 +4,7 @@ metadata:
   name: innovatech-db
   namespace: innovatech
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: innovatech-db
@@ -14,7 +15,11 @@ spec:
     spec:
       containers:
         - name: mysql
-          image: mysql:8.0
+          # 👇 REEMPLAZA ESTA URI POR LA DE TU REPOSITORIO ECR DE LA BASE DE DATOS
+          image: 114680401577.dkr.ecr.us-east-1.amazonaws.com/innovatech-db:latest
+          ports:
+            - containerPort: 3306
+              name: mysql
           env:
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
@@ -23,6 +28,9 @@ spec:
                   key: MYSQL_ROOT_PASSWORD
             - name: MYSQL_DATABASE
               value: "innovatech"
-          ports:
-            - containerPort: 3306
-              name: mysql
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: data
+          emptyDir: {}
