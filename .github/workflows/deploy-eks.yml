@@ -107,7 +107,7 @@ jobs:
           kubectl apply -f k8s/backend-despachos-deployment.yaml -n $EKS_NAMESPACE
           kubectl apply -f k8s/backend-despachos-service.yaml -n $EKS_NAMESPACE
           kubectl set image deployment/innovatech-backend \
-            innovatech-backend=$ECR_REGISTRY/${ECR_REPO_BACKEND_DESPACHOS}:${IMAGE_TAG} \
+            backend=$ECR_REGISTRY/${ECR_REPO_BACKEND_DESPACHOS}:${IMAGE_TAG} \
             -n $EKS_NAMESPACE
           kubectl rollout status deployment/innovatech-backend -n $EKS_NAMESPACE
 
