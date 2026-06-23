@@ -89,14 +89,16 @@ jobs:
           kubectl config current-context
 
       # ---------- Aplicar manifests base ----------
-      - name: Aplicar manifests base (namespace, DB, servicios)
+      - name: Aplicar manifests base y levantar BD
         env:
           EKS_NAMESPACE: ${{ secrets.EKS_NAMESPACE }}
         run: |
           kubectl apply -f k8s/namespace.yaml
           kubectl apply -f k8s/mysql-secret.yaml -n $EKS_NAMESPACE
-          kubectl apply -f k8s/mysql-deployment.yaml -n $EKS_NAMESPACE
           kubectl apply -f k8s/mysql-service.yaml -n $EKS_NAMESPACE
+          kubectl apply -f k8s/mysql-deployment.yaml -n $EKS_NAMESPACE
+          echo "Esperando 15 segundos a que MySQL inicialice sus puertos..."
+          sleep 15
 
       # ---------- Actualizar BACKEND DESPACHOS en EKS ----------
       - name: Actualizar BACKEND DESPACHOS en EKS

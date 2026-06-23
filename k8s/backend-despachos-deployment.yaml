@@ -18,7 +18,7 @@ spec:
           # Recuerda verificar que el ID de cuenta de AWS y el nombre del repositorio ECR coincidan con los tuyos
           image: 114680401577.dkr.ecr.us-east-1.amazonaws.com/innovatech-backend-despachos:${IMAGE_TAG}
           ports:
-            - containerPort: 3001
+            - containerPort: 8080
           env:
             - name: DB_HOST
               value: "innovatech-db"
