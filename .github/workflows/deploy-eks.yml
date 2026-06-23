@@ -44,12 +44,12 @@ jobs:
           docker build -t $ECR_REGISTRY/${ECR_REPO_FRONTEND}:${IMAGE_TAG} .
           docker push $ECR_REGISTRY/${ECR_REPO_FRONTEND}:${IMAGE_TAG}
 
-      # ---------- BACKEND DESPACHOS ----------
+# ---------- BACKEND DESPACHOS ----------
       - name: Build & push BACKEND DESPACHOS
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         run: |
-          cd back-Despachos_SpringBoot
+          cd back-Despachos_SpringBoot/Springboot-API-REST-DESPACHO
           docker build -t $ECR_REGISTRY/${ECR_REPO_BACKEND_DESPACHOS}:${IMAGE_TAG} .
           docker push $ECR_REGISTRY/${ECR_REPO_BACKEND_DESPACHOS}:${IMAGE_TAG}
 
@@ -58,7 +58,7 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         run: |
-          cd back-Ventas_SpringBoot
+          cd back-Ventas_SpringBoot/Springboot-API-REST
           docker build -t $ECR_REGISTRY/${ECR_REPO_BACKEND_VENTAS}:${IMAGE_TAG} .
           docker push $ECR_REGISTRY/${ECR_REPO_BACKEND_VENTAS}:${IMAGE_TAG}
 
