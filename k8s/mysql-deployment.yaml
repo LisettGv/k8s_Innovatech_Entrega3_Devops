@@ -11,18 +11,18 @@ spec:
     metadata:
       labels:
         app: innovatech-db
-  spec:
-    containers:
-      - name: mysql
-        image: mysql:8.0
-        env:
-          - name: MYSQL_ROOT_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: mysql-secret
-                key: MYSQL_ROOT_PASSWORD
-          - name: MYSQL_DATABASE
-            value: "innovatech" # Cambiado a "innovatech" para que calce con tus aplicaciones
-        ports:
-          - containerPort: 3306
-            name: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:8.0
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: MYSQL_ROOT_PASSWORD
+            - name: MYSQL_DATABASE
+              value: "innovatech"
+          ports:
+            - containerPort: 3306
+              name: mysql
